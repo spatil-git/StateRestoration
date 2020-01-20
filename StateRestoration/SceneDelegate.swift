@@ -14,12 +14,26 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-        // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
-        // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
-        // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
-        guard let _ = (scene as? UIWindowScene) else { return }
+        // Do we have an activity to restore?
+        if let userActivity = connectionOptions.userActivities.first ?? session.stateRestorationActivity {
+            // Setup the detail view controller with it's restoration activity.
+            if !configure(window: window, with: userActivity) {
+                print("Failed to restore DetailViewController from \(userActivity)")
+            }
+        }
+        window?.makeKeyAndVisible()
     }
 
+    // Restore the model of the view controller with the saved NSUserActivity.
+    func configure(window: UIWindow?, with activity: NSUserActivity) -> Bool {
+        if let viewController = ViewController.loadFromStoryboard() {
+            window?.rootViewController = viewController
+            viewController.restoreUserActivityState(activity)
+            return true
+        }
+        return false
+    }
+    
     func sceneDidDisconnect(_ scene: UIScene) {
         // Called as the scene is being released by the system.
         // This occurs shortly after the scene enters the background, or when its session is discarded.
@@ -33,8 +47,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
 
     func sceneWillResignActive(_ scene: UIScene) {
-        // Called when the scene will move from an active state to an inactive state.
-        // This may occur due to temporary interruptions (ex. an incoming phone call).
+        // Save the user activity of the current session.
+        if let vc = window?.rootViewController as? ViewController {
+            scene.userActivity = vc.vcUserActivity
+        }
     }
 
     func sceneWillEnterForeground(_ scene: UIScene) {
@@ -48,6 +64,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // to restore the scene back to its current state.
     }
 
-
+    // MARK: State Restoration
+    func stateRestorationActivity(for scene: UIScene) -> NSUserActivity? {
+        return scene.userActivity
+    }
 }
 

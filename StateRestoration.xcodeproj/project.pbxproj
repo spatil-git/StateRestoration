@@ -49,6 +49,7 @@
 		926F523923D378B90006390D /* StateRestorationUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = StateRestorationUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		926F523D23D378B90006390D /* StateRestorationUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StateRestorationUITests.swift; sourceTree = "<group>"; };
 		926F523F23D378B90006390D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		926F524B23D65DB60006390D /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,6 +80,7 @@
 		926F520F23D378B50006390D = {
 			isa = PBXGroup;
 			children = (
+				926F524B23D65DB60006390D /* README.md */,
 				926F521A23D378B50006390D /* StateRestoration */,
 				926F523123D378B90006390D /* StateRestorationTests */,
 				926F523C23D378B90006390D /* StateRestorationUITests */,
